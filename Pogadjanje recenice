@@ -1,0 +1,57 @@
+package pogadjanjerecenice;
+
+import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
+
+public class PogadjanjeRecenice {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        Random r = new Random();
+        String array[] = {"drvo", "kanta", "vrata", "stolica", "kompjuter", "parket", "telefon", "stan"};
+        String rec,kompletnaRec;
+        int rec1, pokusaj = 1;
+        char crta = '_', slovo;
+        rec1 = r.nextInt(array.length); //uzima random poziciju iz niza
+        rec = array[rec1]; //gleda poziciju i u odnosu na nju uzima rec
+        char zamena[] = new char[rec.length()]; //pretvara string u niz karaktera
+        char zamena2[] = new char[rec.length()];
+        //zamenjuje karaktere sa crtama
+        for (int i = 0; i < rec.length(); i++) {
+            zamena[i] = crta;
+            zamena2[i] = crta;
+        }
+        System.out.println("Pogodite sledecu rec od "+ rec.length() +" slova pogadjanjem po jednog slova");
+        System.out.println(Arrays.toString(zamena));
+        System.out.println("Unesite slovo i kliknite enter, imate 30 pokusaja");
+        while (pokusaj != 30) {
+            System.out.println("Pokusaj: "+pokusaj);
+            //korisnik unosi slovo za pogadjanje
+            slovo = sc.next().charAt(0);
+            //ako pogodi slovo ono se zamenjuje sa crtom na odjedjenoj 'i' poziciji
+            for (int i = 0; i < rec.length(); i++) {
+                //zamenjuje sve crte slovima da bi mogao da uporedjuje slova a ne crte
+                zamena[i] = rec.charAt(i);
+                if (zamena[i] == slovo) {
+                    zamena[i] = slovo;
+                    //zamena2 pamti slova koja su pogodjna
+                    zamena2[i] = slovo;
+                }else{
+                    //vraca crte na mesta koja nisu pogodjena
+                zamena[i] = crta;
+                }
+            }
+            System.out.println(Arrays.toString(zamena2));
+            pokusaj++;
+            //vraca niz karaktera u string
+            kompletnaRec = new String(zamena2);
+                 //ako je kompletnaRec ista kao prvobitan string rec, zaustavi petlju
+                 if (kompletnaRec.equals(rec)){
+                     System.out.println("Bravo, pogodili ste rec!!!");
+                    break;
+                }
+        }
+    }
+}
